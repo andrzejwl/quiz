@@ -90,7 +90,8 @@ class QuizForm extends Component {
             case 2:
                 return (
                     <Container maxWidth="sm" className={classes.root}>
-                        <Question 
+                        <Question
+                            key={currentQuestion} 
                             questionNumber={currentQuestion} 
                             quiz={quiz} 
                             updateQuiz={this.updateQuiz.bind(this)} 

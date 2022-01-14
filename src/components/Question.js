@@ -29,6 +29,15 @@ class Question extends Component {
         this.setState({
             checked: Array(question.answers.length).fill(false),
         });
+        console.log(this.state.checked);
+    }
+
+    componentDidMount() {
+        const { questionNumber, quiz } = this.props;
+        const question = quiz.questions[questionNumber];
+        this.setState({
+            checked: Array(question.answers.length).fill(false),
+        });
     }
 
     handleCheckChange(idx) {
@@ -58,14 +67,7 @@ class Question extends Component {
     }
 
     handleNextQ() {
-        const { questionNumber, quiz, nextQuestion } = this.props;
-        const question = quiz.questions[questionNumber];
-
-        this.setState({
-            checked: Array(question.answers.length).fill(false),
-            verify: false,
-        });
-
+        const { nextQuestion } = this.props;
         nextQuestion();
     }
 
@@ -73,6 +75,7 @@ class Question extends Component {
         const { questionNumber, quiz } = this.props;
         const question = quiz.questions[questionNumber];
         const {checked, verify } = this.state;
+
 
         if (verify) {
             return (
