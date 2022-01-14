@@ -1,6 +1,8 @@
 import { Component } from 'react';
+import { Button, TextField, Divider } from '@mui/material';
+
 import { loadQuizFromTextFile } from '../fileHandling';
-import { Button, TextField } from '@mui/material';
+import { readLocalQuizzes, saveQuiz } from '../storage';
 
 
 function LoadedFileName(props) {
@@ -25,7 +27,17 @@ class LoadQuiz extends Component {
       title: 'New Quiz',
       quiz: null,
       filename: '',
+      localQuizzes: [],
     };
+  }
+  
+  componentDidMount() {
+    const quizzes = readLocalQuizzes();
+
+    if (quizzes)
+      this.setState({
+        localQuizzes: quizzes,
+      });
   }
 
   showFile = async (e) => {
@@ -56,17 +68,24 @@ class LoadQuiz extends Component {
 
   handleQuizStart() {
     const { updateQuiz, nextStep } = this.props;
-    const {quiz, title} = this.state;
+    const { quiz, title } = this.state;
     
     if (quiz && title) {
       quiz.title = title;
       updateQuiz(quiz);
+      saveQuiz(quiz);
       nextStep();
     }
   }
 
+  handleLocalQuizStart(quiz) {
+    const { updateQuiz, nextStep } = this.props;
+    updateQuiz(quiz);
+    nextStep();
+  }
+
   render = () => {
-      const { title, filename } = this.state;
+      const { title, filename, localQuizzes } = this.state;
 
       return (
           <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
@@ -88,15 +107,30 @@ class LoadQuiz extends Component {
               variant="outlined" 
               defaultValue={title}
               onChange={(e) => this.handleNameChange(e)}
-              inputProps={{ style: { color: 'white', fontFamily: 'fontFamily: `"Roboto", sans-serif'}}}
+              inputProps={{ style: { color: 'rgb(61, 61, 61)', fontFamily: 'fontFamily: `"Roboto", sans-serif'}}}
               style={{
                 margin: '2em',
               }}
             />
 
             <Button onClick={this.handleQuizStart.bind(this)} variant="contained">
-              Start Quiz
+              Start New Quiz
             </Button>
+            
+            <Divider style={{margin: '1em', width: '100%'}} />
+            <span>Past Quizzes</span>
+            {localQuizzes.map((q, idx) => {
+              return (
+                <div key={idx} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}> 
+                  <span>
+                    {q.title}, {q.questions.length} questions
+                  </span>
+                  <Button variant="contained" onClick={() => this.handleLocalQuizStart(q)} style={{ margin: '1em' }}>
+                    Start Quiz
+                  </Button>
+                </div>
+              )
+            })}
           </div>
     )
   }

@@ -1,11 +1,18 @@
-class Answer {
-    constructor(text) {
-        this.isCorrect = isAnswerStringCorrect(text);
-        this.text = this.isCorrect ? trimCorrectAnswer(text) : text;
+export class Answer {
+    constructor(text, isCorrect=null) {
+        if (isCorrect === null) {
+            // raw file constructor
+            this.isCorrect = isAnswerStringCorrect(text);
+            this.text = this.isCorrect ? trimCorrectAnswer(text) : text;
+        } else {
+            // local storage constructor
+            this.isCorrect = isCorrect;
+            this.text = text;
+        }
     }
 }
 
-class Question {
+export class Question {
     constructor(text, answers) {
         this.text = text;
         this.answers = answers;
@@ -27,7 +34,7 @@ class Question {
     }
 }
 
-class Quiz {
+export class Quiz {
     constructor(questions, title='My Quiz') {
         this.title = title;
         this.questions = questions;

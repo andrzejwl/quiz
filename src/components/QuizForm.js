@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import Container from '@mui/material/Container';
 import { makeStyles, withStyles } from '@mui/styles';
+import { Button, Container } from '@mui/material';
 
 import LoadQuiz from './LoadQuiz';
 import InitQuiz from './InitQuiz';
@@ -96,6 +96,13 @@ class QuizForm extends Component {
                             updateQuiz={this.updateQuiz.bind(this)} 
                             nextQuestion={this.nextQuestion.bind(this)}
                         />
+                        <Button 
+                            variant="contained" 
+                            onClick={this.startNew.bind(this)}
+                            style={{ marginRight: 0, marginLeft: 'auto' }}
+                        >
+                            Abort Quiz
+                        </Button>
                     </Container>
                 )
             case 3:
