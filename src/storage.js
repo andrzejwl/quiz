@@ -3,7 +3,8 @@ import {Quiz, Question, Answer} from './fileHandling';
 export function readLocalQuizzes() {
     let quizArrayLocal = localStorage.getItem('quizzes');
     quizArrayLocal = JSON.parse(quizArrayLocal);
-
+    if ((quizArrayLocal) === null)
+        return null;
     let quizArray = [];
 
     quizArrayLocal.forEach(q => {
