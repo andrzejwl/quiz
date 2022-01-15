@@ -29,7 +29,6 @@ class Question extends Component {
         this.setState({
             checked: Array(question.answers.length).fill(false),
         });
-        console.log(this.state.checked);
     }
 
     componentDidMount() {

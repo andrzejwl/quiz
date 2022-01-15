@@ -23,6 +23,10 @@ export function readLocalQuizzes() {
     return quizArray;
 }
 
+export function overrideLocalQuizzes(quizzes) {
+    localStorage.setItem('quizzes', JSON.stringify(quizzes));
+}
+
 export function saveQuiz(quiz) {
     let quizArray = readLocalQuizzes();
     if (!quizArray)

@@ -1,8 +1,9 @@
 import { Component } from 'react';
 import { Button, TextField, Divider } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { loadQuizFromTextFile } from '../fileHandling';
-import { readLocalQuizzes, saveQuiz } from '../storage';
+import { readLocalQuizzes, overrideLocalQuizzes, saveQuiz } from '../storage';
 
 
 function LoadedFileName(props) {
@@ -84,6 +85,15 @@ class LoadQuiz extends Component {
     nextStep();
   }
 
+  handleLocalQuizDelete(idx) {
+    let quizzes = readLocalQuizzes();
+    quizzes.splice(idx, 1);
+    overrideLocalQuizzes(quizzes);
+    this.setState({
+      localQuizzes: quizzes,
+    });
+  }
+
   render = () => {
       const { title, filename, localQuizzes } = this.state;
 
@@ -121,13 +131,18 @@ class LoadQuiz extends Component {
             <span>Past Quizzes</span>
             {localQuizzes.map((q, idx) => {
               return (
-                <div key={idx} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}> 
+                <div key={idx} style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}> 
                   <span>
                     {q.title}, {q.questions.length} questions
                   </span>
-                  <Button variant="contained" onClick={() => this.handleLocalQuizStart(q)} style={{ margin: '1em' }}>
-                    Start Quiz
-                  </Button>
+                  <div>
+                    <Button variant="contained" onClick={() => this.handleLocalQuizStart(q)} style={{ margin: '1em' }}>
+                      Start Quiz
+                    </Button>
+                    <Button variant="contained" onClick={() => this.handleLocalQuizDelete(idx)} style={{ margin: '1em' }}>
+                      <DeleteIcon />
+                    </Button>
+                  </div>	
                 </div>
               )
             })}
