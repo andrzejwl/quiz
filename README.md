@@ -18,3 +18,7 @@ d) Fourth answer.
 ```
 
 where the correct answers are marked with a `v`. As of right now, each question and the corresponding answers have to be contained in a single line and there may not be empty lines in betweeen. 
+
+# Live Demo
+
+The app is hosted at GitHub Pages under the following URL: [https://andrzejwl.github.io/quiz/](https://andrzejwl.github.io/quiz/). 
