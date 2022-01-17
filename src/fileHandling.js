@@ -81,6 +81,9 @@ export function loadQuizFromTextFile(text) {
             curQuestionText = line;
         }
     });
+    // last question
+    let newQuestion = new Question(curQuestionText, curAnswers);
+    questions.push(newQuestion);
 
     return new Quiz(questions);
 }
