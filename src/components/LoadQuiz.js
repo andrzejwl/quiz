@@ -129,23 +129,25 @@ class LoadQuiz extends Component {
             
             <Divider style={{margin: '1em', width: '100%'}} />
             <span>Past Quizzes</span>
-            {localQuizzes.map((q, idx) => {
-              return (
-                <div key={idx} style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}> 
-                  <span>
-                    {q.title}, {q.questions.length} questions
-                  </span>
-                  <div>
-                    <Button variant="contained" onClick={() => this.handleLocalQuizStart(q)} style={{ margin: '1em' }}>
-                      Start Quiz
-                    </Button>
-                    <Button variant="contained" onClick={() => this.handleLocalQuizDelete(idx)} style={{ margin: '1em' }}>
-                      <DeleteIcon />
-                    </Button>
-                  </div>	
-                </div>
-              )
-            })}
+            <div style={{ overflowY: 'scroll', maxHeight: '60vh' }}>
+              {localQuizzes.map((q, idx) => {
+                return (
+                  <div key={idx} style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}> 
+                    <span>
+                      {q.title}, {q.questions.length} questions
+                    </span>
+                    <div>
+                      <Button variant="contained" onClick={() => this.handleLocalQuizStart(q)} style={{ margin: '1em' }}>
+                        Start Quiz
+                      </Button>
+                      <Button variant="contained" onClick={() => this.handleLocalQuizDelete(idx)} style={{ margin: '1em' }}>
+                        <DeleteIcon />
+                      </Button>
+                    </div>	
+                  </div>
+                )
+              })}
+            </div>
           </div>
     )
   }
